@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Row, Col, Icon, Menu } from 'antd';
 import { CSSTransition } from 'react-transition-group';
-import { HeaderWraper, InHeaderWraper,SearchWraper, NavSearch, SearchBtn } from './style';
+import { connect } from 'react-redux';
+import store from '../../store'
+import { handleInputChange, handleInputFocus, handleInputBlur } from '../../store/actions';
+import { HeaderWraper, InHeaderWraper, SearchWraper, NavSearch, SearchBtn } from './style';
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -29,28 +32,28 @@ class Header extends Component {
     })
   }
 
-  handleInputChange = (e) => {
-    let inputVal = e.target.value;
+  // handleInputChange = (e) => {
+  //   let inputVal = e.target.value;
 
-    this.setState(() => ({
-      inputVal
-    }))
-  }
+  //   this.setState(() => ({
+  //     inputVal
+  //   }))
+  // }
 
-  handleInputFocus = () => {
-    this.setState(() => ({
-      foucused: true
-    }))
-  }
+  // handleInputFocus = () => {
+  //   this.setState(() => ({
+  //     foucused: true
+  //   }))
+  // }
 
-  handleInputBlur = () => {
-    this.setState(() => ({
-      foucused: false
-    }))
-  }
+  // handleInputBlur = () => {
+  //   this.setState(() => ({
+  //     foucused: false
+  //   }))
+  // }
 
   render() {
-    const {inputVal, foucused} = this.state;
+    const { inputVal, foucused, handleInputChange, handleInputFocus, handleInputBlur } = this.props;
 
     return (
       <React.Fragment>
@@ -91,11 +94,11 @@ class Header extends Component {
               <Col span={4}>
                 <SearchWraper className={foucused ? 'focused searchWraper' : 'searchWraper'}>
                   <CSSTransition in={foucused} timeout={200} classNames='slide'>
-                    <NavSearch 
+                    <NavSearch
                       value={inputVal}
-                      onChange={this.handleInputChange}
-                      onFocus={this.handleInputFocus}
-                      onBlur={this.handleInputBlur}
+                      onChange={(e) => { handleInputChange(e.target.value) }}
+                      onFocus={handleInputFocus}
+                      onBlur={handleInputBlur}
                     >
                     </NavSearch>
                   </CSSTransition>
@@ -114,4 +117,25 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = state => {
+  return {
+    inputVal: state.headerReducer.inputVal,
+    foucused: state.headerReducer.foucused
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handleInputChange: (val) => {
+      store.dispatch(handleInputChange(val));
+    },
+    handleInputFocus() {
+      store.dispatch(handleInputFocus());
+    },
+    handleInputBlur() {
+      store.dispatch(handleInputBlur());
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
