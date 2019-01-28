@@ -119,8 +119,8 @@ class Header extends Component {
 
 const mapStateToProps = state => {
   return {
-    inputVal: state.headerReducer.inputVal,
-    foucused: state.headerReducer.foucused
+    inputVal: state.headerReducer.get('inputVal'),
+    foucused: state.headerReducer.get('foucused')
   }
 }
 
