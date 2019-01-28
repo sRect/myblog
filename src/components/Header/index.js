@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Icon, Menu } from 'antd';
-import { HeaderWraper, InHeaderWraper } from './style';
+import { CSSTransition } from 'react-transition-group';
+import { HeaderWraper, InHeaderWraper,SearchWraper, NavSearch, SearchBtn } from './style';
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -11,10 +12,13 @@ class Header extends Component {
     super();
 
     this.state = {
-      current: 'book'
+      current: 'book',
+      inputVal: '',
+      foucused: false
     }
   }
 
+  // 导航点击
   handleClick = (e) => {
     console.log(e);
     this.setState(() => {
@@ -25,7 +29,29 @@ class Header extends Component {
     })
   }
 
+  handleInputChange = (e) => {
+    let inputVal = e.target.value;
+
+    this.setState(() => ({
+      inputVal
+    }))
+  }
+
+  handleInputFocus = () => {
+    this.setState(() => ({
+      foucused: true
+    }))
+  }
+
+  handleInputBlur = () => {
+    this.setState(() => ({
+      foucused: false
+    }))
+  }
+
   render() {
+    const {inputVal, foucused} = this.state;
+
     return (
       <React.Fragment>
         <HeaderWraper>
@@ -62,7 +88,24 @@ class Header extends Component {
                   </Menu.Item>
                 </Menu>
               </Col>
-              <Col span={4}>button</Col>
+              <Col span={4}>
+                <SearchWraper className={foucused ? 'focused searchWraper' : 'searchWraper'}>
+                  <CSSTransition in={foucused} timeout={200} classNames='slide'>
+                    <NavSearch 
+                      value={inputVal}
+                      onChange={this.handleInputChange}
+                      onFocus={this.handleInputFocus}
+                      onBlur={this.handleInputBlur}
+                    >
+                    </NavSearch>
+                  </CSSTransition>
+                  <CSSTransition in={foucused} timeout={200} classNames='slide'>
+                    <SearchBtn>
+                      <Icon type="search" />
+                    </SearchBtn>
+                  </CSSTransition>
+                </SearchWraper>
+              </Col>
             </Row>
           </InHeaderWraper>
         </HeaderWraper>
