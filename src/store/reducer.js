@@ -1,4 +1,5 @@
-import { combineReducers } from 'redux';
+// import { combineReducers } from 'redux';
+import { combineReducers } from 'redux-immutable'; // 使用redux-immutable
 import { headerState } from './state';
 import * as types from './actionTypes';
 
