@@ -3,10 +3,12 @@ import styled from 'styled-components';
 export const HeaderWraper = styled.div`
   width: 100%;
   height: 56px;
+  background: #fff;
   border-bottom: 1px solid #f0f0f0;
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 10;
   text-align: center;
 `
 export const InHeaderWraper = styled.div`
