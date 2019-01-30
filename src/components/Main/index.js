@@ -22,7 +22,9 @@ class Main extends React.Component {
     }
   }
 
-
+  handleClick = () => {
+    console.log("跳转详情")
+  }
 
   render() {
     const { pageList } = this.state;
@@ -31,9 +33,11 @@ class Main extends React.Component {
       <React.Fragment>
         <MainWrapper>
           <List
+            onClick={this.handleClick}
             size="default"
             itemLayout="vertical"
             position="bottom"
+            style={{ cursor: 'pointer' }}
             pagination={{
               total: 2,
               onChange: (page) => {
@@ -45,10 +49,10 @@ class Main extends React.Component {
             dataSource={pageList}
             renderItem={item => (
               <List.Item
-                extra={<img width={270} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
+                extra={<img width={240} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
               >
                 <List.Item.Meta
-                  title={<a href={item.titleHref}>{item.title}</a>}
+                  title={<span>{item.title}</span>}
                   description={item.description}
                 />
               </List.Item>
