@@ -1,5 +1,5 @@
 import React from 'react';
-import { List } from 'antd';
+import { List, Carousel } from 'antd';
 import { MainWrapper } from './style';
 
 class Main extends React.Component {
@@ -32,6 +32,11 @@ class Main extends React.Component {
     return (
       <React.Fragment>
         <MainWrapper>
+          <Carousel autoplay speed={800} infinite={true}>
+            <div className="bannerWrap"><img src="//bpic.588ku.com//back_origin_min_pic/18/06/10/80de9910228011f002967b07ee4f3692.jpg" alt="img" /><h3>祝贺大家新年快乐</h3></div>
+            <div><h3>2</h3></div>
+            <div><h3>3</h3></div>
+          </Carousel>
           <List
             onClick={this.handleClick}
             size="default"
