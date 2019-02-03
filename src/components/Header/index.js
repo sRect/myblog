@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Icon, Menu } from 'antd';
+import { Row, Col, Icon, Menu, message } from 'antd';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import store from '../../store'
@@ -30,6 +30,15 @@ class Header extends Component {
         current
       }
     })
+  }
+
+  handleSearch = () => {
+    if (this.props.inputVal) {
+      message.warning('测试阶段，暂停使用！');
+    } else {
+      message.warning('请输入内容进行搜索！');
+      return;
+    }
   }
 
   // handleInputChange = (e) => {
@@ -103,7 +112,7 @@ class Header extends Component {
                     </NavSearch>
                   </CSSTransition>
                   <CSSTransition in={foucused} timeout={200} classNames='slide'>
-                    <SearchBtn>
+                    <SearchBtn onClick={this.handleSearch}>
                       <Icon type="search" />
                     </SearchBtn>
                   </CSSTransition>
