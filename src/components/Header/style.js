@@ -18,6 +18,8 @@ export const InHeaderWraper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  padding: 0 60px;
+  box-sizing: border-box;
   .ant-row-flex {
     height: 100%;
     ul.ant-menu {
@@ -80,7 +82,7 @@ export const SearchWraper = styled.div`
 export const NavSearch = styled.input.attrs({
   type: 'text',
   placeholder: '请输入...'
-})`
+}) `
   width: 180px;
   height: 38px;
   border-radius: 38px;
@@ -99,7 +101,7 @@ export const NavSearch = styled.input.attrs({
 `
 export const SearchBtn = styled.button.attrs({
   title: '点击搜索'
-})`
+}) `
   width: 30px;
   height: 30px;
   background: none;
