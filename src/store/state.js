@@ -4,3 +4,7 @@ export const headerState = fromJS({
   inputVal: '',
   foucused: false
 })
+
+export const mainState = fromJS({
+  articleList: []
+})

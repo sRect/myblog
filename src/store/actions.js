@@ -20,11 +20,12 @@ export const handleInputBlur = () => {
   }
 }
 
-// const handleInputGetArticleList = () => {
-//   return {
-//     type: types.HANDLE_INPUT_GET_ARTICLELIST
-//   }
-// }
+const handleInputGetArticleList = (list) => {
+  return {
+    type: types.HANDLE_INPUT_GET_ARTICLELIST,
+    list
+  }
+}
 
 export const getArticleList = (data) => {
   console.log(data)
@@ -33,8 +34,14 @@ export const getArticleList = (data) => {
       params: {
         value: data
       }
-    }).then(res => {
-      console.log(res)
+    }).then(({ data: { data } }) => {
+      let { list, success, msg } = data.data;
+      console.log(success)
+      if (success) {
+        dispatch(handleInputGetArticleList(list));
+      } else {
+        alert(msg)
+      }
     }).catch(error => {
       console.log(error)
     })
