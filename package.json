@@ -9,6 +9,7 @@
     "customize-cra": "^0.2.11",
     "immutable": "^4.0.0-rc.12",
     "prop-types": "^15.6.2",
+    "qs": "^6.6.0",
     "react": "^16.7.0",
     "react-app-rewired": "^2.0.2",
     "react-dom": "^16.7.0",
