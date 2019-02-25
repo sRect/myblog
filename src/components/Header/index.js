@@ -154,8 +154,8 @@ const mapDispatchToProps = dispatch => {
         store.dispatch(handleInputBlur());
       }
     },
-    handleGetArticleList() {
-      store.dispatch(getArticleList());
+    handleGetArticleList(val) {
+      store.dispatch(getArticleList(val));
     }
   }
 }

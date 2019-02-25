@@ -27,8 +27,9 @@ export const handleInputBlur = () => {
 // }
 
 export const getArticleList = (data) => {
+  console.log(data)
   return dispatch => {
-    axios.post(' https://easy-mock.com/mock/5c7399520cf5d2150d52cc1d/api.myblog.com', {
+    axios.get('/mock/5c7399520cf5d2150d52cc1d/api.myblog.com', {
       params: {
         value: data
       }
