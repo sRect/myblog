@@ -10,7 +10,6 @@ const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 class Header extends Component {
-
   constructor() {
     super();
 
@@ -33,6 +32,7 @@ class Header extends Component {
   }
 
   handleSearch = () => {
+    this.navSearch.focus();
     if (this.props.inputVal) {
       message.warning('测试阶段，暂停使用！');
     } else {
@@ -101,17 +101,24 @@ class Header extends Component {
                 </Menu>
               </Col>
               <Col span={4}>
-                <SearchWraper className={foucused ? 'focused searchWraper' : 'searchWraper'}>
-                  <CSSTransition in={foucused} timeout={200} classNames='slide'>
+                <SearchWraper
+                  className={foucused ? 'focused searchWraper' : 'searchWraper'}
+                >
+                  <CSSTransition in={foucused} timeout={800} classNames='slide'>
                     <NavSearch
+                      ref={(navSearch) => { this.navSearch = navSearch }}
                       value={inputVal}
                       onChange={(e) => { handleInputChange(e.target.value) }}
                       onFocus={handleInputFocus}
-                      onBlur={handleInputBlur}
+                      onBlur={(e) => { handleInputBlur(e.target.value) }}
                     >
                     </NavSearch>
                   </CSSTransition>
-                  <CSSTransition in={foucused} timeout={200} classNames='slide'>
+                  <CSSTransition
+                    in={foucused}
+                    timeout={800}
+                    classNames='slide'
+                  >
                     <SearchBtn onClick={this.handleSearch}>
                       <Icon type="search" />
                     </SearchBtn>
@@ -141,8 +148,10 @@ const mapDispatchToProps = dispatch => {
     handleInputFocus() {
       store.dispatch(handleInputFocus());
     },
-    handleInputBlur() {
-      store.dispatch(handleInputBlur());
+    handleInputBlur(val) {
+      if (!val) {
+        store.dispatch(handleInputBlur());
+      }
     }
   }
 }
