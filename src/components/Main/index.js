@@ -27,6 +27,8 @@ class Main extends React.Component {
   render() {
     const { carouselSetting } = this.state;
     const { articleList } = this.props;
+    let articleListData = articleList.toJS();
+
     return (
       <React.Fragment>
         <MainWrapper>
@@ -42,14 +44,14 @@ class Main extends React.Component {
             position="bottom"
             style={{ cursor: 'pointer' }}
             pagination={{
-              total: 2,
+              total: articleListData.length,
               onChange: (page) => {
                 console.log(page);
               },
               showQuickJumper: true,
               pageSize: 5,
             }}
-            dataSource={articleList.toJS()}
+            dataSource={articleListData}
             renderItem={item => (
               <List.Item
                 extra={<img width={240} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
