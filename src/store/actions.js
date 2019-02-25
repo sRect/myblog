@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import axios from '../axios';
+import { fromJS } from 'immutable'
 
 export const handleInputChange = (val) => {
   return {
@@ -23,20 +24,18 @@ export const handleInputBlur = () => {
 const handleInputGetArticleList = (list) => {
   return {
     type: types.HANDLE_INPUT_GET_ARTICLELIST,
-    list
+    list: fromJS(list)
   }
 }
 
 export const getArticleList = (data) => {
-  console.log(data)
   return dispatch => {
     axios.get('/mock/5c7399520cf5d2150d52cc1d/api.myblog.com/getArticleList', {
       params: {
         value: data
       }
     }).then(({ data: { data } }) => {
-      let { list, success, msg } = data.data;
-      console.log(success)
+      let { list, success, msg } = data;
       if (success) {
         dispatch(handleInputGetArticleList(list));
       } else {

@@ -6,5 +6,16 @@ export const headerState = fromJS({
 })
 
 export const mainState = fromJS({
-  articleList: []
+  articleList: [
+    {
+      title: '测试标题1',
+      description: '这是文章简述这是文章简述这是文章简述这是文章简述这是文章简述这是文章简述这是文是文章简述这是文章简述这是文章简述',
+      titleHref: `javascript:;`
+    },
+    {
+      title: '测试标题2',
+      description: '这是文章简述',
+      titleHref: `javascript:;`
+    }
+  ]
 })

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { List, Carousel } from 'antd';
 import { MainWrapper } from './style';
 
@@ -8,16 +9,7 @@ class Main extends React.Component {
 
     this.state = {
       pageList: [
-        {
-          title: '测试标题1',
-          description: '这是文章简述这是文章简述这是文章简述这是文章简述这是文章简述这是文章简述这是文是文章简述这是文章简述这是文章简述',
-          titleHref: `javascript:;`
-        },
-        {
-          title: '测试标题2',
-          description: '这是文章简述',
-          titleHref: `javascript:;`
-        }
+
       ],
       carouselSetting: {
         dots: true,
@@ -33,8 +25,8 @@ class Main extends React.Component {
   }
 
   render() {
-    const { pageList, carouselSetting } = this.state;
-
+    const { carouselSetting } = this.state;
+    const { articleList } = this.props;
     return (
       <React.Fragment>
         <MainWrapper>
@@ -57,7 +49,7 @@ class Main extends React.Component {
               showQuickJumper: true,
               pageSize: 5,
             }}
-            dataSource={pageList}
+            dataSource={articleList.toJS()}
             renderItem={item => (
               <List.Item
                 extra={<img width={240} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
@@ -75,4 +67,10 @@ class Main extends React.Component {
   }
 }
 
-export default Main;
+const mapStateToProps = state => {
+  return {
+    articleList: state.getIn(['mainReducer', 'articleList'])
+  }
+}
+
+export default connect(mapStateToProps, null)(Main);
