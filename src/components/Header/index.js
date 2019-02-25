@@ -3,7 +3,7 @@ import { Row, Col, Icon, Menu, message } from 'antd';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import store from '../../store'
-import { handleInputChange, handleInputFocus, handleInputBlur } from '../../store/actions';
+import { handleInputChange, handleInputFocus, handleInputBlur, getArticleList } from '../../store/actions';
 import { HeaderWraper, InHeaderWraper, SearchWraper, NavSearch, SearchBtn } from './style';
 
 const SubMenu = Menu.SubMenu;
@@ -34,7 +34,8 @@ class Header extends Component {
   handleSearch = () => {
     this.navSearch.focus();
     if (this.props.inputVal) {
-      message.warning('测试阶段，暂停使用！');
+      this.props.handleGetArticleList(this.props.inputVal);
+      // message.warning('测试阶段，暂停使用！');
     } else {
       message.warning('请输入内容进行搜索！');
       return;
@@ -152,6 +153,9 @@ const mapDispatchToProps = dispatch => {
       if (!val) {
         store.dispatch(handleInputBlur());
       }
+    },
+    handleGetArticleList() {
+      store.dispatch(getArticleList());
     }
   }
 }
