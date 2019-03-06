@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { LocaleProvider } from 'antd';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import store from './store';
 import 'reset-css';
-import App from './components/App/App';
+import GlobalStyle from "./components/GlobalStyle";
+import RouterConfig from "./router";
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Provider store={store}>
     <LocaleProvider locale={zh_CN}>
-      <App />
+      <Fragment>
+        <RouterConfig />
+        <GlobalStyle />
+      </Fragment>
     </LocaleProvider>
   </Provider>,
   document.getElementById('root')

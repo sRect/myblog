@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Row, Col, Icon, Menu, message } from 'antd';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
-import store from '../../store'
+import store from '../../store';
 import { handleInputChange, handleInputFocus, handleInputBlur, getArticleList } from '../../store/actions';
 import { HeaderWraper, InHeaderWraper, SearchWraper, NavSearch, SearchBtn } from './style';
 
@@ -80,7 +81,9 @@ class Header extends Component {
                   selectedKeys={[this.state.current]}
                 >
                   <Menu.Item key="book">
-                    <Icon type="book" style={{ fontSize: '16px' }} />我的文章
+                    <Link to="/">
+                      <Icon type="book" style={{ fontSize: '16px' }} />我的文章
+                      </Link>
                   </Menu.Item>
                   <SubMenu title={<span className="submenu-title-wrapper"><Icon type="star" style={{ fontSize: '16px' }} />我的收藏</span>}>
                     <MenuItemGroup title="Vue">
@@ -97,7 +100,9 @@ class Header extends Component {
                     </MenuItemGroup>
                   </SubMenu>
                   <Menu.Item key="coffee">
-                    <Icon type="coffee" style={{ fontSize: '16px' }} />踩坑记录
+                    <Link to="/experienceRecord">
+                      <Icon type="coffee" style={{ fontSize: '16px' }} />踩坑记录
+                    </Link>
                   </Menu.Item>
                 </Menu>
               </Col>
