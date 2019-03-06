@@ -1,5 +1,5 @@
-import React, { Suspense } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { Suspense, lazy, Fragment } from "react";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Loading from "../components/Loading";
 
 // const Home = lazy(() => import("../pages/Home"));
@@ -9,6 +9,7 @@ import Loading from "../components/Loading";
 import Home from "../pages/Home";
 import ArticleCollects from "../pages/ArticleCollects";
 import ExperienceRecord from "../pages/ExperienceRecord";
+const Header = lazy(() => import('../components/Header')); // 组件懒加载
 
 // class RouterConfig extends Component {
 //   render() {
@@ -32,13 +33,19 @@ const RouterConfig = () => {
   return (
     <div>
       <Suspense fallback={<Loading />}>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={Home}></Route>
-            <Route exact path="/articleCollects" component={ArticleCollects}></Route>
-            <Route exact path="/experienceRecord" component={ExperienceRecord}></Route>
-          </Switch>
-        </BrowserRouter>
+        <div className="App">
+          <BrowserRouter>
+            <Fragment>
+              <Header />
+              <Switch>
+                <Route exact path="/" component={Home}></Route>
+                <Route exact path="/articleCollects" component={ArticleCollects}></Route>
+                <Route exact path="/experienceRecord" component={ExperienceRecord}></Route>
+                <Redirect from="*" to="/"></Redirect>
+              </Switch>
+            </Fragment>
+          </BrowserRouter>
+        </div>
       </Suspense>
     </div>
   )

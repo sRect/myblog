@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import { Row, Col, Icon, Menu, message } from 'antd';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
@@ -11,11 +11,11 @@ const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 class Header extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      current: 'book',
+      current: 'home',
       inputVal: '',
       foucused: false
     }
@@ -23,13 +23,38 @@ class Header extends Component {
 
   // 导航点击
   handleClick = (e) => {
-    console.log(e);
+    let { key } = e;
+    // 如果不使用withRouter此组件的this.props为空，没法执行props中的history、location、match等方法。
+    let { history } = this.props;
+
     this.setState(() => {
-      const current = e.key;
+      const current = key;
       return {
         current
       }
     })
+    switch (key) {
+      case "home":
+        history.push({
+          pathname: '/',
+          query: {
+            name: "rose",
+            age: 18
+          }
+        })
+        break;
+      case "experienceRecord":
+        history.push({
+          pathname: '/experienceRecord',
+          query: {
+            name: "jack",
+            age: 18
+          }
+        })
+        break;
+      default:
+        break;
+    }
   }
 
   handleSearch = () => {
@@ -80,10 +105,8 @@ class Header extends Component {
                   onClick={this.handleClick}
                   selectedKeys={[this.state.current]}
                 >
-                  <Menu.Item key="book">
-                    <Link to="/">
-                      <Icon type="book" style={{ fontSize: '16px' }} />我的文章
-                      </Link>
+                  <Menu.Item key="home">
+                    <Icon type="home" style={{ fontSize: '16px' }} />我的文章
                   </Menu.Item>
                   <SubMenu title={<span className="submenu-title-wrapper"><Icon type="star" style={{ fontSize: '16px' }} />我的收藏</span>}>
                     <MenuItemGroup title="Vue">
@@ -99,10 +122,8 @@ class Header extends Component {
                       <Menu.Item key="setting:6" disabled>Option 6</Menu.Item>
                     </MenuItemGroup>
                   </SubMenu>
-                  <Menu.Item key="coffee">
-                    <Link to="/experienceRecord">
-                      <Icon type="coffee" style={{ fontSize: '16px' }} />踩坑记录
-                    </Link>
+                  <Menu.Item key="experienceRecord">
+                    <Icon type="experienceRecord" style={{ fontSize: '16px' }} />踩坑记录
                   </Menu.Item>
                 </Menu>
               </Col>
@@ -165,4 +186,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
