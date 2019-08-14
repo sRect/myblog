@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { List, Carousel } from 'antd';
 import { MainWrapper } from './style';
+import store from '../../store';
+import { getArticleList } from '../../store/actions';
 
 class Main extends React.Component {
   constructor() {
@@ -67,6 +69,10 @@ class Main extends React.Component {
       </React.Fragment >
     )
   }
+
+  componentDidMount() {
+    this.props.handleGetArticleList('default');
+  }
 }
 
 const mapStateToProps = state => {
@@ -75,4 +81,12 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null)(Main);
+const mapDispatchToProps = dispatch => {
+  return {
+    handleGetArticleList(val) {
+      store.dispatch(getArticleList(val));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

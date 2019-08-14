@@ -30,7 +30,7 @@ const handleInputGetArticleList = (list) => {
 
 export const getArticleList = (data) => {
   return dispatch => {
-    axios.get('/mock/5c7399520cf5d2150d52cc1d/api.myblog.com/getArticleList', {
+    axios.get('/home/getArticleList', {
       params: {
         value: data
       }

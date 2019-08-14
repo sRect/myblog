@@ -3,7 +3,8 @@ import qs from 'qs';
 import { message } from 'antd';
 
 const Axios = axios.create({
-  baseURL: "https://easy-mock.com",
+  // baseURL: "https://easy-mock.com",
+  // baseURL: "http://localhost:3000",
   timeout: 5000,
   responseType: "json",
   // withCredentials: true, // 是否允许带cookie这些
