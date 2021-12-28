@@ -1,19 +1,46 @@
-name: GitHub Actions Build and Deploy Demo
+name: build and deploy ci
+
 on:
-  push:
-    branches:
-      - master
+  push: # push 时触发ci
+    branches: [master] # 作用于master分支
+  # pull_request:
+  #   branches: [master]
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
 
-      - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@master
-        env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: build
-          BUILD_SCRIPT: npm install && npm run build
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      # 拉取master分支代码
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # 指定nodejs版本
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+
+      # 安装依赖
+      - name: install
+        run: yarn run install
+
+      # 打包
+      - name: build
+        run: yarn run build
+
+      # 部署到gh-pages分支
+      - name: deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.6
+        with:
+          access_token: ${{ secrets.ACCESS_TOKEN }}
+          # 发布到指定分支
+          branch: gh-pages
+          # 指定发布的打包后的文件
+          folder: build
