@@ -1,0 +1,27 @@
+# https://docs.travis-ci.com/user/languages/javascript-with-nodejs
+language: node_js
+node_js:
+  - 14
+env:
+  - NODE_ENV=production
+branchs:
+  only:
+    - master
+cache: npm
+before_install:
+  - npm install yarn -g
+install:
+  - yarn run install
+scripts:
+  - yarn run build
+# https://docs.travis-ci.com/user/deployment/pages/
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  local_dir: build
+  on:
+    branch: master
+notifications:
+  email: true
