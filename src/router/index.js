@@ -9,7 +9,7 @@ import Loading from "../components/Loading";
 import Home from "../pages/Home";
 import ArticleCollects from "../pages/ArticleCollects";
 import ExperienceRecord from "../pages/ExperienceRecord";
-const Header = lazy(() => import('../components/Header')); // 组件懒加载
+const Header = lazy(() => import("../components/Header")); // 组件懒加载
 
 // class RouterConfig extends Component {
 //   render() {
@@ -38,17 +38,30 @@ const RouterConfig = () => {
             <Fragment>
               <Header />
               <Switch>
-                <Route exact path="/" component={Home}></Route>
-                <Route exact path="/articleCollects" component={ArticleCollects}></Route>
-                <Route exact path="/experienceRecord" component={ExperienceRecord}></Route>
-                <Redirect from="*" to="/"></Redirect>
+                <Route exact path="/" component={Home} />
+                <Route
+                  exact
+                  path="/articleCollects"
+                  component={ArticleCollects}
+                />
+                <Route
+                  exact
+                  path="/experienceRecord"
+                  component={ExperienceRecord}
+                />
+                <Route
+                  exact
+                  path="/jenkins"
+                  component={() => <div>hello jenkins</div>}
+                />
+                <Redirect from="*" to="/" />
               </Switch>
             </Fragment>
           </BrowserRouter>
         </div>
       </Suspense>
     </div>
-  )
-}
+  );
+};
 
 export default RouterConfig;
