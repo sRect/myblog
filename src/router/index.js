@@ -52,7 +52,7 @@ const RouterConfig = () => {
                 <Route
                   exact
                   path="/jenkins"
-                  component={() => <div>hello jenkins</div>}
+                  component={() => <div>hello jenkins 123</div>}
                 />
                 <Redirect from="*" to="/" />
               </Switch>
